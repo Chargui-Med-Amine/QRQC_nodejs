@@ -4,5 +4,6 @@ class Membre{
         this.firstName=firstName;
         this.lastName=lastName;
         this.fonction=fonction;
+        
     }
 }
