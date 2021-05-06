@@ -5,7 +5,7 @@ const {
     getPanne,
     updatePanne,
     deletePanne
-} = require('../controllers/PannesControllers');
+} = require('../controllers/PanneControllers');
 
 const router = express.Router();
 

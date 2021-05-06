@@ -5,7 +5,7 @@ const {
     getMachine,
     updateMachine,
     deleteMachine
-} = require('../controllers/MachinesControllers');
+} = require('../controllers/MachineControllers');
 
 const router = express.Router();
 
