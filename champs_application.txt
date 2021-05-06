@@ -1,0 +1,33 @@
+1)Machine:
+	-nom machine
+	-image url
+	-liste des noms des pannes possibles(*)
+	-nbr de fois que la machine tombe en panne
+2)Panne:
+	-nom machine
+	-nom de la panne
+	-liste des steps à suivre ordonnées(sous la forme: "ce qui est à controler" à travers "ce qui est à faire" )
+	-description panne
+	-temps estimé de reperation
+3)formulaire qrqc:
+	a)Descriptions du probléme:
+		-Quoi ? Quel est le problème, le produit, la référence ?
+		-Où ? Où ai-je arrêté le défaut ? Ou se trouve le défaut sur la pièce ?
+		-Quand ? Quand le défaut est apparu la 1ère fois ? Quand depuis ?
+		-Combien ? Quel est le taux de défaut ? Combien de défauts par produit ?
+	b)Protection immediate:
+		-listes des actions immidiates 
+	c)Analyse de causes:
+		-Pourquoi le défaut a-t-il été créé ?*3
+		-Pourquoi le défaut n'a-t-il pas été vu ?
+	d)Plan d'action:
+		-liste des actions
+4)to do list:
+	-liste des taches à faire(ajouter depuis la liste des actions dans 3)d) et les taches ajouter sur l'app)
+5)Controlleur:
+	-nbr de piéces
+	-nbr de piéce irroné
+	-machine en panne
+	....
+
+	
