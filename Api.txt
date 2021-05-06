@@ -1,0 +1,7 @@
+********Membre****************
+post('http://localhost:8080/api/membre',addMembre);
+get('http://localhost:8080/api/membres', getAllMembres);---mazal
+get('http://localhost:8080/api/membre/id', getMembre);
+put('http://localhost:8080/api/membre/id', updateMembre);
+delete('http://localhost:8080/api/membre/id', deleteMembre);
+

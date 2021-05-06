@@ -11,9 +11,9 @@ const router = express.Router();
 
 router.post('/panne',addPanne);
 router.get('/pannes', getAllPannes);
-router.get('/panne/:id', getPanne);
-router.put('/panne/:id', updatePanne);
-router.delete('/panne/:id', deletePanne);
+router.get('/panne/:nom_machine', getPanne);
+router.put('/panne/:nom_machine', updatePanne);
+router.delete('/panne/:nom_machine', deletePanne);
 
 module.exports = {
     routes : router
