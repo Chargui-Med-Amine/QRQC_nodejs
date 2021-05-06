@@ -2,10 +2,6 @@
 const firebase = require('../db');
 const membre = require('../models/membre');
 const firestore = firebase.firestore();
-
-
-
-
 const addMembre = async(req,res,next)=>{
     try {
         const data = req.body;
@@ -26,6 +22,7 @@ const getAllMembres = async (req, res, next) => {
             data.forEach(doc => {
                 const membre = new membre(
                     doc.id,
+                    doc.data().ImgUrl,
                     doc.data().FirstName,
                     doc.data().LastName,
                     doc.data().Fonction
