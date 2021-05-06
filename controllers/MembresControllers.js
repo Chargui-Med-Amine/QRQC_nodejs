@@ -11,7 +11,7 @@ const addMembre = async(req,res,next)=>{
         res.status(400).send(error.message);
     }
 }
-const getAllMembres = async (req, res, next) => {
+/*const getAllMembres = async (req, res, next) => {
     try {
         const membre = await firestore.collection('Membres');
         const data = await membre.get();
@@ -23,6 +23,7 @@ const getAllMembres = async (req, res, next) => {
                 const membre = new membre(
                     doc.id,
                     doc.data().ImgUrl,
+                    doc.data().password,
                     doc.data().FirstName,
                     doc.data().LastName,
                     doc.data().Fonction
@@ -35,7 +36,14 @@ const getAllMembres = async (req, res, next) => {
     } catch (error) {
         res.status(400).send(error.message);
     }
-}
+}*/
+const getAllMembres = 
+const citiesRef = db.collection('cities');
+const getAllMembres = await citiesRef.get();
+getAllMembres.forEach(doc => {
+  console.log(doc.id, '=>', doc.data());
+});
+
 const getMembre = async (req, res, next) => {
     try {
         const id = req.params.id;
