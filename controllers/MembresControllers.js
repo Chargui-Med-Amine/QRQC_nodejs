@@ -1,6 +1,6 @@
 'use strict';
 const firebase = require('../db');
-const membre = require('../models/membre');
+const Membre = require('../models/membre');
 const firestore = firebase.firestore();
 const addMembre = async(req,res,next)=>{
     try {
@@ -13,14 +13,14 @@ const addMembre = async(req,res,next)=>{
 }
 const getAllMembres = async (req, res, next) => {
     try {
-        const membre = await firestore.collection('Membres');
-        const data = await membre.get();
+        const membres = await firestore.collection('Membres');
+        const data = await membres.get();
         const membresArray = [];
         if(data.empty) {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const membre = new membre(
+                const membre = new Membre(
                     doc.id,
                     doc.data().ImgUrl,
                     doc.data().password,
@@ -29,20 +29,17 @@ const getAllMembres = async (req, res, next) => {
                     doc.data().Fonction
                 );
                 membresArray.push(membre);
-            });
-            res.send(membresArray);
-            res.status(200).send();
-        }
+               
+                
+                
+        });
+        res.status(200).send(membresArray);
+    }
     } catch (error) {
         res.status(400).send(error.message);
     }
-}/*
-const getAllMembres = 
-const citiesRef = db.collection('cities');
-const getAllMembres = await citiesRef.get();
-getAllMembres.forEach(doc => {
-  console.log(doc.id, '=>', doc.data());
-*/
+}
+
 const getMembre = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -80,7 +77,6 @@ const deleteMembre = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
-
 module.exports = {
     addMembre,
     getAllMembres,

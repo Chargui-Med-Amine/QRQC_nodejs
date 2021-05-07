@@ -8,3 +8,4 @@ class Panne{
         
     }
 }
+module.exports=Panne;

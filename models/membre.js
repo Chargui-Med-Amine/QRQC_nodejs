@@ -1,5 +1,5 @@
 class Membre{
-    constructor(id,firstName,lastName,fonction,password){
+    constructor(id,firstName,lastName,fonction,password,ImgUrl){
         this.id=id;
         this.password = password;
         this.ImgUrl=ImgUrl;
@@ -8,4 +8,6 @@ class Membre{
         this.fonction=fonction;
         
     }
-}
+    
+} 
+module.exports= Membre;
