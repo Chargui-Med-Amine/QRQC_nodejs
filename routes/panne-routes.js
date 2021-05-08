@@ -9,11 +9,11 @@ const {
 
 const router = express.Router();
 
-router.post('/panne',addPanne);
-router.get('/pannes', getAllPannes);
-router.get('/panne/:nom_machine', getPanne);
-router.put('/panne/:nom_machine', updatePanne);
-router.delete('/panne/:nom_machine', deletePanne);
+router.post('/panne/:nom_machine',addPanne);
+router.get('/pannes/:nom_machine', getAllPannes);
+router.get('/panne/:nom_machine/:nom_panne', getPanne);
+router.put('/panne/:nom_machine/:nom_panne', updatePanne);
+router.delete('/panne/:nom_machine/:nom_panne', deletePanne);
 
 module.exports = {
     routes : router

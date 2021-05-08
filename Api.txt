@@ -5,3 +5,24 @@ get('http://localhost:8080/api/membre/id', getMembre);
 put('http://localhost:8080/api/membre/id', updateMembre);
 delete('http://localhost:8080/api/membre/id', deleteMembre);
 
+********Machine*****************
+router.post('http://localhost:8080/api/machine',addMachine);
+router.get('http://localhost:8080/api/machines', getAllMachines);
+router.get('http://localhost:8080/api/machine/nom_machine', getMachine);
+router.put('http://localhost:8080/api/machine/nom_machine', updateMachine);
+router.delete('http://localhost:8080/api/machine/nom_machine', deleteMachine);
+
+********Panne******************
+router.post('http://localhost:8080/api/panne/nom_machine',addPanne to machine);
+router.get('http://localhost:8080/api/pannes/nom_machine', getAllPannes of machine );
+router.get('http://localhost:8080/api/panne/nom_machine/nom_panne', getPanne of machine);
+router.put('http://localhost:8080/api/panne/nom_machine/nom_panne', updatePanne of machine);
+router.delete('http://localhost:8080/api/panne/nom_machine/nom_panne', deletePanne of machine);
+
+*********Step*****************
+router.post('http://localhost:8080/api/step/nom_machine/nom_panne',addStep to a panne);
+router.get('http://localhost:8080/api/steps/nom_machine/nom_panne', getAllSteps fo panne);
+router.get('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', getStep fo panne);
+router.put('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', updateStep fo panne);
+router.delete('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', deleteStep fo panne);
+

@@ -1,7 +1,6 @@
 'use strict';
 const firebase = require('../db');
-const machine = require('../models/machine');
-const panne=require('../models/panne')
+const Machine = require('../models/machine');
 const firestore = firebase.firestore();
 
 
@@ -11,32 +10,24 @@ const addMachine = async(req,res,next)=>{
     try {
         const data = req.body;
         await firestore.collection('machines').doc('/'+req.body.nom_machine + '/').set(data);
-        res.send('Record saved successfuly')
+        res.send(req.body.nom_machine+' saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
-const addPanne = async(req,res,next)=>{
-    try {
-        const data = req.body;
-        await firestore.collection('machines').doc(nom_machine).collection('panne').doc('/'+req.body.nom_panne + '/').set(data);
-        res.send('Record saved successfuly')
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
+
 const getAllMachines = async (req, res, next) => {
     try {
-        const machine = await firestore.collection('machines');
-        const data = await machine.get();
+        const machines = await firestore.collection('machines');
+        const data = await machines.get();
         const machinesArray = [];
         if(data.empty) {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const machine = new machine(
-                    doc.nom_machine,
-                    doc.data().ImgUrl,
+                const machine = new Machine(
+                    doc.data().nom_machine,
+                    doc.data().imgurl,
                     doc.data().nombre_de_panne
                 );
                 machinesArray.push(machine);
@@ -51,7 +42,7 @@ const getAllMachines = async (req, res, next) => {
 const getMachine = async (req, res, next) => {
     try {
         const nom_machine = req.params.nom_machine;
-        const machine = await firestore.collection('machines').doc(nom_machine).collection('panne').doc('panne1').collection('steps').doc('1');
+        const machine = await firestore.collection('machines').doc(nom_machine);
         const data = await machine.get();
         if(!data.exists) {
             res.status(404).send('machine with the given nom_machine not found');
@@ -70,7 +61,7 @@ const updateMachine = async (req, res, next) => {
         const data = req.body;
         const machine =  await firestore.collection('machines').doc(nom_machine);
         await machine.update(data);
-        res.status(200).send('Membrs record updated successfuly');        
+        res.status(200).send(nom_machine + ' updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -80,15 +71,14 @@ const deleteMachine = async (req, res, next) => {
     try {
         const nom_machine = req.params.nom_machine;
         await firestore.collection('machines').doc(nom_machine).delete();
-        res.status(200).send('Record deleted successfuly');
+        res.status(200).send(nom_machine + ' deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
 
 module.exports = {
-    addMachine,
-    addPanne,
+    addMachine,   
     getAllMachines,
     getMachine,
     updateMachine,

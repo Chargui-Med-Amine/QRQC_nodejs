@@ -1,6 +1,6 @@
 'use strict';
 const firebase = require('../db');
-const panne = require('../models/panne');
+const Panne = require('../models/panne');
 const firestore = firebase.firestore();
 
 
@@ -9,7 +9,7 @@ const firestore = firebase.firestore();
 const addPanne = async(req,res,next)=>{
     try {
         const data = req.body;
-        await firestore.collection('pannes').doc('/'+req.body.id + '/').set(data);
+        await firestore.collection('machines').doc('/'+req.body.nom_machine+'/').collection('panne').doc('/'+req.body.nom_panne + '/').set(data);
         res.send('Record saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
@@ -17,18 +17,19 @@ const addPanne = async(req,res,next)=>{
 }
 const getAllPannes = async (req, res, next) => {
     try {
-        const panne = await firestore.collection('pannes');
-        const data = await panne.get();
+        const nom_machine = req.params.nom_machine;
+        const pannes = await firestore.collection('machines').doc(nom_machine).collection('panne');
+        const data = await pannes.get();
         const pannesArray = [];
         if(data.empty) {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const panne = new panne(
-                    doc.id,
-                    doc.data().FirstName,
-                    doc.data().LastName,
-                    doc.data().Fonction
+                const panne = new Panne(
+                    doc.data().nom_machine,
+                    doc.data().nom_panne,
+                    doc.data().description_panne,
+                    doc.data().temps_estime
                 );
                 pannesArray.push(panne);
             });
@@ -41,8 +42,9 @@ const getAllPannes = async (req, res, next) => {
 }
 const getPanne = async (req, res, next) => {
     try {
-        const id = req.params.id;
-        const panne = await firestore.collection('pannes').doc(id);
+        const nom_machine = req.params.nom_machine;
+        const nom_panne = req.params.nom_panne;
+        const panne = await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne );
         const data = await panne.get();
         if(!data.exists) {
             res.status(404).send('panne with the given ID not found');
@@ -57,11 +59,12 @@ const getPanne = async (req, res, next) => {
 
 const updatePanne = async (req, res, next) => {
     try {
-        const id = req.params.id;
+        const nom_machine = req.params.nom_machine;
+        const nom_panne = req.params.nom_panne;
         const data = req.body;
-        const panne =  await firestore.collection('pannes').doc(id);
+        const panne =  await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne );
         await panne.update(data);
-        res.status(200).send('Membrs record updated successfuly');        
+        res.status(200).send(nom_panne+' updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -69,9 +72,10 @@ const updatePanne = async (req, res, next) => {
 
 const deletePanne = async (req, res, next) => {
     try {
-        const id = req.params.id;
-        await firestore.collection('pannes').doc(id).delete();
-        res.status(200).send('Record deleted successfuly');
+        const nom_machine = req.params.nom_machine;
+        const nom_panne = req.params.nom_panne;
+        await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne ).delete();
+        res.status(200).send(nom_panne+' deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
     }
