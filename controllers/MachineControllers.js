@@ -1,6 +1,7 @@
 'use strict';
 const firebase = require('../db');
 const machine = require('../models/machine');
+const panne=require('../models/panne')
 const firestore = firebase.firestore();
 
 
@@ -10,6 +11,15 @@ const addMachine = async(req,res,next)=>{
     try {
         const data = req.body;
         await firestore.collection('machines').doc('/'+req.body.nom_machine + '/').set(data);
+        res.send('Record saved successfuly')
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const addPanne = async(req,res,next)=>{
+    try {
+        const data = req.body;
+        await firestore.collection('machines').doc(nom_machine).collection('panne').doc('/'+req.body.nom_panne + '/').set(data);
         res.send('Record saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
@@ -41,7 +51,7 @@ const getAllMachines = async (req, res, next) => {
 const getMachine = async (req, res, next) => {
     try {
         const nom_machine = req.params.nom_machine;
-        const machine = await firestore.collection('machines').doc(nom_machine);
+        const machine = await firestore.collection('machines').doc(nom_machine).collection('panne').doc('panne1').collection('steps').doc('1');
         const data = await machine.get();
         if(!data.exists) {
             res.status(404).send('machine with the given nom_machine not found');
@@ -78,6 +88,7 @@ const deleteMachine = async (req, res, next) => {
 
 module.exports = {
     addMachine,
+    addPanne,
     getAllMachines,
     getMachine,
     updateMachine,
