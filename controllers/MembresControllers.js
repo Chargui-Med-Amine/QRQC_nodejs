@@ -22,11 +22,11 @@ const getAllMembres = async (req, res, next) => {
             data.forEach(doc => {
                 const membre = new Membre(
                     doc.id,
-                    doc.data().imgUrl,
+                    doc.data().firstname,
+                    doc.data().lastname,
                     doc.data().password,
-                    doc.data().firstName,
-                    doc.data().lastName,
-                    doc.data().fonction
+                    doc.data().fonction,
+                    doc.data().imgurl
                 );
                 membresArray.push(membre);
                

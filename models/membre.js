@@ -1,11 +1,11 @@
 class Membre{
-    constructor(id,firstName,lastName,fonction,password,imgUrl){
+    constructor(id,firstname,lastname,password,fonction,imgurl){
         this.id=id;
-        this.password = password;
-        this.imgUrl=imgUrl;
-        this.firstName=firstName;
-        this.lastName=lastName;
+        this.firstname = firstname;
+        this.lastname=lastname;
+        this.password=password;
         this.fonction=fonction;
+        this.imgurl=imgurl;
         
     }
     
