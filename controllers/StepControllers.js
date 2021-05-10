@@ -9,7 +9,7 @@ const firestore = firebase.firestore();
 const addStep = async(req,res,next)=>{
     try {
         const data = req.body;
-        await firestore.collection('machines').doc('/'+req.body.nom_machine+'/').collection('panne').doc('/'+req.body.nom_panne + '/').collection('Step').doc('/'+req.body.nom_step + '/').set(data);
+        await firestore.collection('machines').doc('/'+req.body.nom_machine+'/').collection('panne').doc('/'+req.body.nom_panne + '/').collection('Step').doc('/'+req.body.ordre + '/').set(data);
         res.send('Record saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
@@ -30,7 +30,38 @@ const getAllSteps = async (req, res, next) => {
                     doc.data().nom_machine,
                     doc.data().nom_panne,
                     doc.data().nom_step,
-                    doc.data().description_step,
+                    doc.data().controle,
+                    doc.data().to_do,
+                    doc.data().ordre
+                );
+                stepsArray.push(step);
+            });
+            res.send(stepsArray);
+            res.status(200).send();
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getStepbyordre = async (req, res, next) => {
+    try {
+        const nom_machine = req.params.nom_machine;
+        const nom_panne = req.params.nom_panne;
+        const ord = req.params.ord;
+        const steps = await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne).collection('Step');
+        const data = await steps.where('ordre','==',ord).get();
+        const stepsArray = [];
+        if(data.empty) {
+            res.status(404).send('No mombre record found');
+        }else {
+            data.forEach(doc => {
+                const step = new Step(
+                    doc.data().nom_machine,
+                    doc.data().nom_panne,
+                    doc.data().nom_step,
+                    doc.data().controle,
+                    doc.data().to_do,
                     doc.data().ordre
                 );
                 stepsArray.push(step);
@@ -46,8 +77,8 @@ const getStep = async (req, res, next) => {
     try {
         const nom_machine = req.params.nom_machine;
         const nom_panne = req.params.nom_panne;
-        const nom_step = req.params.nom_step;
-        const step = await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne ).collection('Step').doc(nom_step);
+        const ordre = req.params.ordre;
+        const step = await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne ).collection('Step').doc(ordre);
         const data = await step.get();
         if(!data.exists) {
             res.status(404).send('step with the given ID not found');
@@ -64,11 +95,11 @@ const updateStep = async (req, res, next) => {
     try {
         const nom_machine = req.params.nom_machine;
         const nom_panne = req.params.nom_panne;
-        const nom_step = req.params.nom_step;
+        const ordre = req.params.ordre;
         const data = req.body;
-        const step =  await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne ).collection('Step').doc(nom_step);
+        const step =  await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne ).collection('Step').doc(ordre);
         await step.update(data);
-        res.status(200).send('The Step  '+nom_step+' of the '+nom_panne+' updated successfuly');        
+        res.status(200).send('The Step  '+ordre+' of the '+nom_panne+' updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -78,9 +109,9 @@ const deleteStep = async (req, res, next) => {
     try {
         const nom_machine = req.params.nom_machine;
         const nom_panne = req.params.nom_panne;
-        const nom_step = req.params.nom_step;
-        await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne ).collection('Step').doc(nom_step).delete();
-        res.status(200).send('The Step  '+nom_step+' of the '+nom_panne+' deleted successfuly');
+        const ordre = req.params.ordre;
+        await firestore.collection('machines').doc(nom_machine).collection('panne').doc(nom_panne ).collection('Step').doc(ordre).delete();
+        res.status(200).send('The Step  '+ordre+' of the '+nom_panne+' deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -89,6 +120,7 @@ const deleteStep = async (req, res, next) => {
 module.exports = {
     addStep,
     getAllSteps,
+    getStepbyordre,
     getStep,
     updateStep,
     deleteStep

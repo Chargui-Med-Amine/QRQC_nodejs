@@ -22,7 +22,8 @@ router.delete('http://localhost:8080/api/panne/nom_machine/nom_panne', deletePan
 *********Step*****************
 router.post('http://localhost:8080/api/step/nom_machine/nom_panne',addStep to a panne);
 router.get('http://localhost:8080/api/steps/nom_machine/nom_panne', getAllSteps fo panne);
-router.get('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', getStep fo panne);
-router.put('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', updateStep fo panne);
-router.delete('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', deleteStep fo panne);
+router.get('http://localhost:8080/api/step/nom_machine/nom_panne/ord', getStepbyordre);passer l'ord dans l'url
+router.get('http://localhost:8080/api/step/nom_machine/nom_panne/ordre', getStep fo panne);
+router.put('http://localhost:8080/api/step/nom_machine/nom_panne/ordre', updateStep fo panne);
+router.delete('http://localhost:8080/api/step/nom_machine/nom_panne/ordre', deleteStep fo panne);
 
