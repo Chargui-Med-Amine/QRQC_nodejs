@@ -5,6 +5,7 @@ class Panne{
         this.description_panne=description_panne;
         this.temps_estime=temps_estime;
         
+        
     }
 }
 module.exports=Panne;

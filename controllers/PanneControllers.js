@@ -29,7 +29,8 @@ const getAllPannes = async (req, res, next) => {
                     doc.data().nom_machine,
                     doc.data().nom_panne,
                     doc.data().description_panne,
-                    doc.data().temps_estime
+                    doc.data().temps_estime,
+                    doc.data().number
                 );
                 pannesArray.push(panne);
             });
