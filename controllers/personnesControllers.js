@@ -1,26 +1,26 @@
 'use strict';
 const firebase = require('../db');
-const Membre = require('../models/membre');
+const Personne = require('../models/personne');
 const firestore = firebase.firestore();
-const addMembre = async(req,res,next)=>{
+const addpersonne = async(req,res,next)=>{
     try {
         const data = req.body;
-        await firestore.collection('Membres').doc('/'+req.body.id + '/').set(data);
+        await firestore.collection('personnes').doc('/'+req.body.id + '/').set(data);
         res.send('Record saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
-const getAllMembres = async (req, res, next) => {
+const getAllpersonnes = async (req, res, next) => {
     try {
-        const membres = await firestore.collection('Membres');
-        const data = await membres.get();
-        const membresArray = [];
+        const personnes = await firestore.collection('personnes');
+        const data = await personnes.get();
+        const personnesArray = [];
         if(data.empty) {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const membre = new Membre(
+                const personne = new Personne(
                     doc.id,
                     doc.data().firstname,
                     doc.data().lastname,
@@ -29,28 +29,28 @@ const getAllMembres = async (req, res, next) => {
                     doc.data().imgurl,
                     doc.data().niveau
                 );
-                membresArray.push(membre);
+                personnesArray.push(personne);
                
                 
                 
         });
-        res.status(200).send(membresArray);
+        res.status(200).send(personnesArray);
     }
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
-const getAllMembresbyNiveau = async (req, res, next) => {
+const getAllpersonnesbyNiveau = async (req, res, next) => {
     try {
-        const membres = await firestore.collection('Membres');
+        const personnes = await firestore.collection('personnes');
         const niv = req.params.niv;
-        const data = await membres.where('niveau','==',niv).get();
-        const membresArray = [];
+        const data = await personnes.where('niveau','==',niv).get();
+        const personnesArray = [];
         if(data.empty) {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const membre = new Membre(
+                const personne = new Personne(
                     doc.id,
                     doc.data().firstname,
                     doc.data().lastname,
@@ -59,28 +59,28 @@ const getAllMembresbyNiveau = async (req, res, next) => {
                     doc.data().imgurl,
                     doc.data().niveau
                 );
-                membresArray.push(membre);
+                personnesArray.push(personne);
                
                 
                 
         });
-        res.status(200).send(membresArray);
+        res.status(200).send(personnesArray);
     }
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
-const getAllMembresbyFonction = async (req, res, next) => {
+const getAllpersonnesbyFonction = async (req, res, next) => {
     try {
-        const membres = await firestore.collection('Membres');
+        const personnes = await firestore.collection('personnes');
         const fonc = req.params.fonc;
-        const data = await membres.where('fonction','==',fonc).get();
-        const membresArray = [];
+        const data = await personnes.where('fonction','==',fonc).get();
+        const personnesArray = [];
         if(data.empty) {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const membre = new Membre(
+                const personne = new Personne(
                     doc.id,
                     doc.data().firstname,
                     doc.data().lastname,
@@ -89,12 +89,12 @@ const getAllMembresbyFonction = async (req, res, next) => {
                     doc.data().imgurl,
                     doc.data().niveau
                 );
-                membresArray.push(membre);
+                personnesArray.push(personne);
                
                 
                 
         });
-        res.status(200).send(membresArray);
+        res.status(200).send(personnesArray);
     }
     } catch (error) {
         res.status(400).send(error.message);
@@ -103,13 +103,13 @@ const getAllMembresbyFonction = async (req, res, next) => {
 
 
 
-const getMembre = async (req, res, next) => {
+const getpersonne = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const membre = await firestore.collection('Membres').doc(id);
-        const data = await membre.get();
+        const personne = await firestore.collection('personnes').doc(id);
+        const data = await personne.get();
         if(!data.exists) {
-            res.status(404).send('membre with the given ID not found');
+            res.status(404).send('personne with the given ID not found');
         }else {
             res.send(data.data());
             res.status(200).send();
@@ -119,22 +119,22 @@ const getMembre = async (req, res, next) => {
     }
 }
 
-const updateMembre = async (req, res, next) => {
+const updatepersonne = async (req, res, next) => {
     try {
         const id = req.params.id;
         const data = req.body;
-        const membre =  await firestore.collection('Membres').doc(id);
-        await membre.update(data);
+        const personne =  await firestore.collection('personnes').doc(id);
+        await personne.update(data);
         res.status(200).send('Membrs record updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
 
-const deleteMembre = async (req, res, next) => {
+const deletepersonne = async (req, res, next) => {
     try {
         const id = req.params.id;
-        await firestore.collection('Membres').doc(id).delete();
+        await firestore.collection('personnes').doc(id).delete();
         res.status(200).send('Record deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
@@ -144,13 +144,13 @@ const deleteMembre = async (req, res, next) => {
 
    
 module.exports = {
-    addMembre,
-    getAllMembres,
-    getMembre,
-    updateMembre,
-    getAllMembresbyNiveau,
-    getAllMembresbyFonction,
-    deleteMembre
+    addpersonne,
+    getAllpersonnes,
+    getpersonne,
+    updatepersonne,
+    getAllpersonnesbyNiveau,
+    getAllpersonnesbyFonction,
+    deletepersonne
 }
 
 
