@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./config');
-const personneRoutes = require('./routes/personne-routes');
+const membreRoutes = require('./routes/membre-routes');
 const machineRoutes = require('./routes/machine-routes');
 const panneRoutes = require('./routes/panne-routes');
 const stepRoutes = require('./routes/step-routes');
@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-app.use('/api', personneRoutes.routes);
+app.use('/api', membreRoutes.routes);
 app.use('/api',machineRoutes.routes);
 app.use('/api',panneRoutes.routes);
 app.use('/api',stepRoutes.routes);

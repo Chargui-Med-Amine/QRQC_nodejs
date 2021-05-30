@@ -1,4 +1,4 @@
-class personne{
+class membre{
     constructor(id,firstname,lastname,password,fonction,imgurl,niveau){
         this.id=id;
         this.firstname = firstname;
@@ -11,4 +11,4 @@ class personne{
     }
     
 } 
-module.exports= personne;
+module.exports= membre;

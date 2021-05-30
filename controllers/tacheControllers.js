@@ -13,8 +13,8 @@ const addtache = async(req,res,next)=>{
     try {
         const id = req.params.id;
         const data = req.body;
-        const taches =await firestore.collection('personnes').doc(id).collection('TO_DO_LIST').doc('/'+req.body.description );
-        //const taches =await firestore.collection('personnes').doc(id);
+        const taches =await firestore.collection('membres').doc(id).collection('TO_DO_LIST').doc('/'+req.body.description );
+        //const taches =await firestore.collection('membres').doc(id);
         /*taches.set({
             
           }, { merge: true });*/
@@ -27,7 +27,7 @@ const addtache = async(req,res,next)=>{
 const getAlltaches = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const taches = await firestore.collection('personnes').doc(id).collection('TO_DO_LIST');
+        const taches = await firestore.collection('membres').doc(id).collection('TO_DO_LIST');
         const data = await taches.orderBy("etat").get();
         const tachesArray = [];
         if(data.empty) {
@@ -55,7 +55,7 @@ const getAlltaches = async (req, res, next) => {
 const gettachenotdone = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const taches = await firestore.collection('personnes').doc(id).collection('TO_DO_LIST');
+        const taches = await firestore.collection('membres').doc(id).collection('TO_DO_LIST');
         const data = await taches.where('etat','==','0').get();
         const tachesArray = [];
         if(data.empty) {
@@ -82,7 +82,7 @@ const gettachenotdone = async (req, res, next) => {
 const gettachedone = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const taches = await firestore.collection('personnes').doc(id).collection('TO_DO_LIST');
+        const taches = await firestore.collection('membres').doc(id).collection('TO_DO_LIST');
         const data = await taches.where('etat','==','1').get();
         const tachesArray = [];
         if(data.empty) {
@@ -113,7 +113,7 @@ const updatetache = async (req, res, next) => {
         const des = req.params.des;
         
         const data = req.body;
-        const tache = await firestore.collection('personnes').doc(id).collection('TO_DO_LIST').doc(des);
+        const tache = await firestore.collection('membres').doc(id).collection('TO_DO_LIST').doc(des);
         await tache.update(data);
         res.status(200).send('done');        
     } catch (error) {
