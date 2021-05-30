@@ -1,11 +1,17 @@
-********Membre****************
-post('http://localhost:8080/api/membre',addMembre);
-get('http://localhost:8080/api/membres', getAllMembres);
-get('http://localhost:8080/api/membre/id', getMembre);
-put('http://localhost:8080/api/membre/id', updateMembre);
-delete('http://localhost:8080/api/membre/id', deleteMembre);
-router.get('http://localhost:8080/api/membresniv/:niv', getAllMembresbyNiveau);
-router.get('http://localhost:8080/api/membresfonc/:fonc', getAllMembresbyFonction);
+********personne****************
+post('http://localhost:8080/api/personne',addpersonne);
+get('http://localhost:8080/api/personnes', getAllpersonnes);
+get('http://localhost:8080/api/personne/id', getpersonne);
+put('http://localhost:8080/api/personne/id', updatepersonne);
+delete('http://localhost:8080/api/personne/id', deletepersonne);
+router.get('http://localhost:8080/api/personnesniv/:niv', getAllpersonnesbyNiveau);
+router.get('http://localhost:8080/api/personnesfonc/:fonc', getAllpersonnesbyFonction);
+****************tache******************************
+router.post('/tache/:id',addtache);
+router.get('/taches/:id', getAlltaches);
+router.get('/tachenotdone/:id', gettachenotdone);
+router.get('/tachedone/:id', gettachedone);
+router.put('/tache/:id/:des',updatetache);
 
 
 ********Machine*****************
