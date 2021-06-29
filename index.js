@@ -8,13 +8,16 @@ const machineRoutes = require('./routes/machine-routes');
 const panneRoutes = require('./routes/panne-routes');
 const stepRoutes = require('./routes/step-routes');
 const tacheRoutes = require('./routes/tache-routes');
+const journee = require('./routes/journee-routes');
+const piece = require('./routes/piece-routes');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-
+app.use('/api',journee.routes);
+app.use('/api',piece.routes);
 app.use('/api', membreRoutes.routes);
 app.use('/api',machineRoutes.routes);
 app.use('/api',panneRoutes.routes);

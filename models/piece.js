@@ -3,6 +3,7 @@ class Piece{
         this.ref=ref;
         this.description=description;
         this.imgurl=imgurl;
+        
     }
 }
 module.exports=Piece;

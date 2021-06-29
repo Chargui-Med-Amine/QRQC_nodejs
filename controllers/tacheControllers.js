@@ -3,12 +3,6 @@ const firebase = require('../db');
 const Tache = require('../models/tache');
 const firestore = firebase.firestore();
 
-
-
-
-
-
-
 const addtache = async(req,res,next)=>{
     try {
         const id = req.params.id;
