@@ -8,9 +8,8 @@ const firestore = firebase.firestore();
 const addJournee = async(req,res,next)=>{
     try {
         const data = req.body;
-        let date= new Date();
-        await firestore.collection('Journee').doc('/'+toString(date)+ '/').set(data);
-        res.send(req.body.nom_Journee+' saved successfuly')
+        await firestore.collection('Journee').doc('/'+req.body.date+ '/').set(data);
+        res.send(req.body.date+' saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -25,12 +24,11 @@ const getAllJournees = async (req, res, next) => {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const Journee = new Journee(
-                    doc.data().nom_Journee,
-                    doc.data().imgurl,
-                    doc.data().nombre_de_panne
+                const journee = new Journee(
+                    doc.data().date
+                    
                 );
-                JourneesArray.push(Journee);
+                JourneesArray.push(journee);
             });
             res.send(JourneesArray);
             res.status(200).send();
@@ -41,11 +39,11 @@ const getAllJournees = async (req, res, next) => {
 }
 const getJournee = async (req, res, next) => {
     try {
-        const nom_Journee = req.params.nom_Journee;
-        const Journee = await firestore.collection('Journees').doc(nom_Journee);
+        const date = req.params.date;
+        const Journee = await firestore.collection('Journees').doc(date);
         const data = await Journee.get();
         if(!data.exists) {
-            res.status(404).send('Journee with the given nom_Journee not found');
+            res.status(404).send('Journee with the given date not found');
         }else {
             res.send(data.data());
             res.status(200).send();
@@ -57,11 +55,11 @@ const getJournee = async (req, res, next) => {
 
 const updateJournee = async (req, res, next) => {
     try {
-        const nom_Journee = req.params.nom_Journee;
+        const date = req.params.date;
         const data = req.body;
-        const Journee =  await firestore.collection('Journees').doc(nom_Journee);
+        const Journee =  await firestore.collection('Journees').doc(date);
         await Journee.update(data);
-        res.status(200).send(nom_Journee + ' updated successfuly');        
+        res.status(200).send(date + ' updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -69,9 +67,9 @@ const updateJournee = async (req, res, next) => {
 
 const deleteJournee = async (req, res, next) => {
     try {
-        const nom_Journee = req.params.nom_Journee;
-        await firestore.collection('Journees').doc(nom_Journee).delete();
-        res.status(200).send(nom_Journee + ' deleted successfuly');
+        const date = req.params.date;
+        await firestore.collection('Journees').doc(date).delete();
+        res.status(200).send(date + ' deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
     }

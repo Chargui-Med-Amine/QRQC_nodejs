@@ -1,8 +1,7 @@
 class Defaut{
-    constructor(ref,description,nombre){
-        this.ref=ref;
-        this.description=description;
-        this.nombre=nombre;
+    constructor(nom_defaut,nombre){
+        this.nom_defaut=nom_defaut;
+        this.nombre=nombre;    
     }
 
 }

@@ -28,8 +28,8 @@ const getAllpieces = async (req, res, next) => {
             data.forEach(doc => {
                 const piece = new Piece(
                     doc.data().ref,
-                    doc.data().imgurl,
-                    doc.data().description
+                    doc.data().description,
+                    doc.data().imgurl
                 );
                 piecesArray.push(piece);
             });

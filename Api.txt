@@ -47,3 +47,10 @@ router.get('http://localhost:8080/api/defauts/:ref', getAlldefauts);
 router.get('http://localhost:8080/api/defaut/:ref/:nom_defaut', getdefaut);
 router.put('http://localhost:8080/api/defaut/:ref/:nom_defaut', updatedefaut);
 router.delete('http://localhost:8080/api/defaut/:ref/:nom_defaut', deletedefaut);
+**********Journee**************
+router.post('http://localhost:8080/api/journee',addJournee);
+         NB :    date sans heure
+router.get('http://localhost:8080/api/journees', getAllJournees); 
+router.get('http://localhost:8080/api/journee/:date', getJournee);
+router.put('http://localhost:8080/api/journee/:date', updateJournee);
+router.delete('http://localhost:8080/api/journee/:date', deleteJournee);

@@ -9,8 +9,8 @@ const firestore = firebase.firestore();
 const addAlerte = async(req,res,next)=>{
     try {
         const data = req.body;
-        await firestore.collection('Journee').doc('/'+req.body.nom_Alerte + '/').set(data);
-        res.send(req.body.nom_Alerte+' saved successfuly')
+        await firestore.collection('Journee').doc('/'+req.body.date + '/').collection('Alerte').doc('/'+req.body.nom_alerte + '/').set(data);
+        res.send(req.body.nom_alerte+' saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -18,19 +18,24 @@ const addAlerte = async(req,res,next)=>{
 
 const getAllAlertes = async (req, res, next) => {
     try {
-        const Alertes = await firestore.collection('Alertes');
+        const date = req.params.date;
+        const Alertes = await firestore.collection('Journee').doc(date).collection('Alerte');
         const data = await Alertes.get();
         const AlertesArray = [];
         if(data.empty) {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const Alerte = new Alerte(
-                    doc.data().nom_Alerte,
-                    doc.data().imgurl,
-                    doc.data().nombre_de_panne
+                const alerte = new Alerte(
+                    
+                    doc.data().id_personne,
+                    doc.data().date,
+                    doc.data().nom_alerte,
+                    doc.data().nom_machine,
+                    doc.data().description,
+                    doc.data().etat
                 );
-                AlertesArray.push(Alerte);
+                AlertesArray.push(alerte);
             });
             res.send(AlertesArray);
             res.status(200).send();
@@ -41,11 +46,12 @@ const getAllAlertes = async (req, res, next) => {
 }
 const getAlerte = async (req, res, next) => {
     try {
-        const nom_Alerte = req.params.nom_Alerte;
-        const Alerte = await firestore.collection('Alertes').doc(nom_Alerte);
+        const date = req.params.date;
+        const nom_alerte = req.params.nom_alerte;
+        const Alerte = await firestore.collection('Journee').doc(date).collection('Alerte').doc(nom_alerte);
         const data = await Alerte.get();
         if(!data.exists) {
-            res.status(404).send('Alerte with the given nom_Alerte not found');
+            res.status(404).send('Alerte with the given nom_alerte not found');
         }else {
             res.send(data.data());
             res.status(200).send();
@@ -57,11 +63,12 @@ const getAlerte = async (req, res, next) => {
 
 const updateAlerte = async (req, res, next) => {
     try {
-        const nom_Alerte = req.params.nom_Alerte;
+        const date = req.params.date;
+        const nom_alerte = req.params.nom_alerte;
         const data = req.body;
-        const Alerte =  await firestore.collection('Alertes').doc(nom_Alerte);
+        const Alerte = await firestore.collection('Journee').doc(date).collection('Alerte').doc(nom_alerte);
         await Alerte.update(data);
-        res.status(200).send(nom_Alerte + ' updated successfuly');        
+        res.status(200).send(nom_alerte + ' updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -69,9 +76,10 @@ const updateAlerte = async (req, res, next) => {
 
 const deleteAlerte = async (req, res, next) => {
     try {
-        const nom_Alerte = req.params.nom_Alerte;
-        await firestore.collection('Alertes').doc(nom_Alerte).delete();
-        res.status(200).send(nom_Alerte + ' deleted successfuly');
+        const date = req.params.date;
+        const nom_alerte = req.params.nom_alerte;
+        await firestore.collection('Journee').doc(date).collection('Alerte').doc(nom_alerte).delete();
+        res.status(200).send(nom_alerte + ' deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
     }
