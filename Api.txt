@@ -36,3 +36,14 @@ router.get('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', getS
 router.put('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', updateStep fo panne);
 router.delete('http://localhost:8080/api/step/nom_machine/nom_panne/nom_step', deleteStep fo panne);
 
+*********Piece**************
+router.post('http://localhost:8080/api/piece',addpiece);
+router.get('http://localhost:8080/api/pieces', getAllpieces);
+router.get('http://localhost:8080/api/piece/:ref', getpiece);
+router.put('http://localhost:8080/api/piece/:ref', updatepiece);
+router.delete('http://localhost:8080/api/piece/:ref', deletepiece);
+router.post('http://localhost:8080/api/defaut/:ref',adddefaut);
+router.get('http://localhost:8080/api/defauts/:ref', getAlldefauts);
+router.get('http://localhost:8080/api/defaut/:ref/:nom_defaut', getdefaut);
+router.put('http://localhost:8080/api/defaut/:ref/:nom_defaut', updatedefaut);
+router.delete('http://localhost:8080/api/defaut/:ref/:nom_defaut', deletedefaut);
