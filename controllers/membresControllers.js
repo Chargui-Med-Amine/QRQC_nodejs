@@ -134,7 +134,17 @@ const updatemembre = async (req, res, next) => {
 const deletemembre = async (req, res, next) => {
     try {
         const id = req.params.id;
-        await firestore.collection('membres').doc(id).delete();
+        await firestore.collection('membres').doc(id).collection('TO_DO_LIST')
+        .get()
+  
+  .then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    doc.ref.delete();
+  });
+  
+});
+await firestore.collection('membres').doc(id).delete();
+
         res.status(200).send('Record deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);

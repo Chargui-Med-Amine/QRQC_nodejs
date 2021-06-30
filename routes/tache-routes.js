@@ -10,7 +10,7 @@ const {
 
 const router = express.Router();
 
-router.post('/tache/:id',addtache);
+router.post('/tache/:fonction',addtache);
 router.get('/taches/:id', getAlltaches);
 router.get('/tachenotdone/:id', gettachenotdone);
 router.get('/tachedone/:id', gettachedone);

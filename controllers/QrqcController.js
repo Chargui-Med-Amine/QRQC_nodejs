@@ -9,8 +9,9 @@ const firestore = firebase.firestore();
 const addQrqc = async(req,res,next)=>{
     try {
         const data = req.body;
-        await firestore.collection('Journee').doc('/'+req.body.date + '/').collection('Qrqc').doc('/'+req.body.nom_Qrqc + '/').set(data);
-        res.send(req.body.nom_Qrqc+' saved successfuly')
+        //const date = req.params.date;
+        await firestore.collection('Journee').doc('/'+req.body.date + '/').collection('Qrqc').doc('/'+req.body.probleme + '/').set(data);
+        res.send(req.body.probleme+' saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -26,16 +27,25 @@ const getAllQrqcs = async (req, res, next) => {
             res.status(404).send('No mombre record found');
         }else {
             data.forEach(doc => {
-                const Qrqc = new Qrqc(
+                const qrqc = new Qrqc(
+                    
                     
                     doc.data().id_personne,
+                    doc.data().niveau,
+                    doc.data().probleme,
+                    doc.data().ref,
+                    doc.data().quoi,
+                    doc.data().lieu,
+                    doc.data().emp_piece,
                     doc.data().date,
-                    doc.data().nom_Qrqc,
-                    doc.data().nom_machine,
-                    doc.data().description,
-                    doc.data().etat
+                    doc.data().heure,
+                    doc.data().taux,
+                    doc.data().nbr,
+                    doc.data().cause,
+                    doc.data().nbrcause
+                    
                 );
-                QrqcsArray.push(Qrqc);
+                QrqcsArray.push(qrqc);
             });
             res.send(QrqcsArray);
             res.status(200).send();
@@ -47,11 +57,11 @@ const getAllQrqcs = async (req, res, next) => {
 const getQrqc = async (req, res, next) => {
     try {
         const date = req.params.date;
-        const nom_Qrqc = req.params.nom_Qrqc;
-        const Qrqc = await firestore.collection('Journee').doc(date).collection('Qrqc').doc(nom_Qrqc);
+        const probleme = req.params.probleme;
+        const Qrqc = await firestore.collection('Journee').doc(date).collection('Qrqc').doc(probleme);
         const data = await Qrqc.get();
         if(!data.exists) {
-            res.status(404).send('Qrqc with the given nom_Qrqc not found');
+            res.status(404).send('Qrqc with the given probleme not found');
         }else {
             res.send(data.data());
             res.status(200).send();
@@ -64,11 +74,11 @@ const getQrqc = async (req, res, next) => {
 const updateQrqc = async (req, res, next) => {
     try {
         const date = req.params.date;
-        const nom_Qrqc = req.params.nom_Qrqc;
+        const probleme = req.params.probleme;
         const data = req.body;
-        const Qrqc = await firestore.collection('Journee').doc(date).collection('Qrqc').doc(nom_Qrqc);
+        const Qrqc = await firestore.collection('Journee').doc(date).collection('Qrqc').doc(probleme);
         await Qrqc.update(data);
-        res.status(200).send(nom_Qrqc + ' updated successfuly');        
+        res.status(200).send(probleme + ' updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -77,9 +87,9 @@ const updateQrqc = async (req, res, next) => {
 const deleteQrqc = async (req, res, next) => {
     try {
         const date = req.params.date;
-        const nom_Qrqc = req.params.nom_Qrqc;
-        await firestore.collection('Journee').doc(date).collection('Qrqc').doc(nom_Qrqc).delete();
-        res.status(200).send(nom_Qrqc + ' deleted successfuly');
+        const probleme = req.params.probleme;
+        await firestore.collection('Journee').doc(date).collection('Qrqc').doc(probleme).delete();
+        res.status(200).send(probleme + ' deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
     }

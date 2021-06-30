@@ -1,20 +1,43 @@
 'use strict';
 const firebase = require('../db');
 const Tache = require('../models/tache');
+const Membre = require('../models/membre');
 const firestore = firebase.firestore();
 
 const addtache = async(req,res,next)=>{
     try {
-        const id = req.params.id;
-        const data = req.body;
-        const taches =await firestore.collection('membres').doc(id).collection('TO_DO_LIST').doc('/'+req.body.description );
-        //const taches =await firestore.collection('membres').doc(id);
-        /*taches.set({
+        
+        const fonction = req.params.fonction;
+        const dat = req.body;
+        const data = await firestore.collection('membres').where('fonction','==',fonction).get();
+        const membresArray = [];
+        if(data.empty) {
+            res.status(404).send('No mombre record found');
+        }else {
+            data.forEach(doc => {
+                const membre = new Membre(
+                    doc.id
+                );
+                membresArray.push(membre);
+                membresArray.forEach(doc => {
+                const taches = firestore.collection('membres').doc(doc.id).collection('TO_DO_LIST').doc('/'+req.body.description );
+            taches.set(dat); 
             
-          }, { merge: true });*/
-        taches.set(data); 
-        res.send('Tache saved successfuly')
-    } catch (error) {
+            }
+
+            );
+              
+               
+                
+                
+        });
+        res.status(200).send('Tache saved successfuly');
+
+        //res.status(200).send(membresArray);
+    }
+        
+        
+        } catch (error) {
         res.status(400).send(error.message);
     }
 }
@@ -105,7 +128,6 @@ const updatetache = async (req, res, next) => {
     try {
         const id = req.params.id;
         const des = req.params.des;
-        
         const data = req.body;
         const tache = await firestore.collection('membres').doc(id).collection('TO_DO_LIST').doc(des);
         await tache.update(data);

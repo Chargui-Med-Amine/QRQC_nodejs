@@ -33,7 +33,8 @@ const getAllAlertes = async (req, res, next) => {
                     doc.data().nom_alerte,
                     doc.data().nom_machine,
                     doc.data().description,
-                    doc.data().etat
+                    doc.data().etat,
+                    doc.data().niveau
                 );
                 AlertesArray.push(alerte);
             });
