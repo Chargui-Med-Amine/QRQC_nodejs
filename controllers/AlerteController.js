@@ -8,7 +8,7 @@ const firestore = firebase.firestore();
 
 const addAlerte = async(req,res,next)=>{
     try {
-        const data = req.body;
+         
         await firestore.collection('Alerte').doc('/'+req.body.nom_alerte + '/').set(data);
         res.send(req.body.nom_alerte+' saved successfuly')
     } catch (error) {
@@ -66,7 +66,7 @@ const updateAlerte = async (req, res, next) => {
     try {
         
         const nom_alerte = req.params.nom_alerte;
-        const data = req.body;
+         
         const Alerte = await firestore.collection('Alerte').doc(nom_alerte);
         await Alerte.update(data);
         res.status(200).send(nom_alerte + ' updated successfuly');        
