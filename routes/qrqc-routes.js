@@ -12,10 +12,10 @@ const {
 const router = express.Router();
 
 router.post('/qrqc',addQrqc);
-router.get('/qrqcs/:date', getAllQrqcs);
-router.get('/qrqc/:date/:probleme', getQrqc);
-router.put('/qrqc/:date/:probleme', updateQrqc);
-router.delete('/qrqc/:date/:probleme', deleteQrqc);
+router.get('/qrqcs', getAllQrqcs);
+router.get('/qrqc/:probleme', getQrqc);
+router.put('/qrqc/:probleme', updateQrqc);
+router.delete('/qrqc/:probleme', deleteQrqc);
 
 
 
