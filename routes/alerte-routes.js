@@ -12,10 +12,10 @@ const {
 const router = express.Router();
 
 router.post('/alerte',addAlerte);
-router.get('/alertes/:date', getAllAlertes);
-router.get('/alerte/:date/:nom_alerte', getAlerte);
-router.put('/alerte/:date/:nom_alerte', updateAlerte);
-router.delete('/alerte/:date/:nom_alerte', deleteAlerte);
+router.get('/alertes', getAllAlertes);
+router.get('/alerte/:nom_alerte', getAlerte);
+router.put('/alerte/:nom_alerte', updateAlerte);
+router.delete('/alerte/:nom_alerte', deleteAlerte);
 
 
 

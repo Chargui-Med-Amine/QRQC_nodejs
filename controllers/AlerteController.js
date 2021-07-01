@@ -9,7 +9,7 @@ const firestore = firebase.firestore();
 const addAlerte = async(req,res,next)=>{
     try {
         const data = req.body;
-        await firestore.collection('Journee').doc('/'+req.body.date + '/').collection('Alerte').doc('/'+req.body.nom_alerte + '/').set(data);
+        await firestore.collection('Alerte').doc('/'+req.body.nom_alerte + '/').set(data);
         res.send(req.body.nom_alerte+' saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
@@ -18,8 +18,8 @@ const addAlerte = async(req,res,next)=>{
 
 const getAllAlertes = async (req, res, next) => {
     try {
-        const date = req.params.date;
-        const Alertes = await firestore.collection('Journee').doc(date).collection('Alerte');
+        
+        const Alertes = await firestore.collection('Alerte');
         const data = await Alertes.get();
         const AlertesArray = [];
         if(data.empty) {
@@ -47,9 +47,9 @@ const getAllAlertes = async (req, res, next) => {
 }
 const getAlerte = async (req, res, next) => {
     try {
-        const date = req.params.date;
+        
         const nom_alerte = req.params.nom_alerte;
-        const Alerte = await firestore.collection('Journee').doc(date).collection('Alerte').doc(nom_alerte);
+        const Alerte = await firestore.collection('Alerte').doc(nom_alerte);
         const data = await Alerte.get();
         if(!data.exists) {
             res.status(404).send('Alerte with the given nom_alerte not found');
@@ -64,10 +64,10 @@ const getAlerte = async (req, res, next) => {
 
 const updateAlerte = async (req, res, next) => {
     try {
-        const date = req.params.date;
+        
         const nom_alerte = req.params.nom_alerte;
         const data = req.body;
-        const Alerte = await firestore.collection('Journee').doc(date).collection('Alerte').doc(nom_alerte);
+        const Alerte = await firestore.collection('Alerte').doc(nom_alerte);
         await Alerte.update(data);
         res.status(200).send(nom_alerte + ' updated successfuly');        
     } catch (error) {
@@ -77,9 +77,9 @@ const updateAlerte = async (req, res, next) => {
 
 const deleteAlerte = async (req, res, next) => {
     try {
-        const date = req.params.date;
+        
         const nom_alerte = req.params.nom_alerte;
-        await firestore.collection('Journee').doc(date).collection('Alerte').doc(nom_alerte).delete();
+        await firestore.collection('Alerte').doc(nom_alerte).delete();
         res.status(200).send(nom_alerte + ' deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);

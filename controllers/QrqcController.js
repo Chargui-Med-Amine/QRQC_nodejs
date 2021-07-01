@@ -9,8 +9,8 @@ const firestore = firebase.firestore();
 const addQrqc = async(req,res,next)=>{
     try {
         const data = req.body;
-        //const date = req.params.date;
-        await firestore.collection('Journee').doc('/'+req.body.date + '/').collection('Qrqc').doc('/'+req.body.probleme + '/').set(data);
+        //
+        await firestore.collection('Qrqc').doc('/'+req.body.probleme + '/').set(data);
         res.send(req.body.probleme+' saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
@@ -19,8 +19,8 @@ const addQrqc = async(req,res,next)=>{
 
 const getAllQrqcs = async (req, res, next) => {
     try {
-        const date = req.params.date;
-        const Qrqcs = await firestore.collection('Journee').doc(date).collection('Qrqc');
+        
+        const Qrqcs = await firestore.collection('Qrqc');
         const data = await Qrqcs.get();
         const QrqcsArray = [];
         if(data.empty) {
@@ -56,9 +56,9 @@ const getAllQrqcs = async (req, res, next) => {
 }
 const getQrqc = async (req, res, next) => {
     try {
-        const date = req.params.date;
+        
         const probleme = req.params.probleme;
-        const Qrqc = await firestore.collection('Journee').doc(date).collection('Qrqc').doc(probleme);
+        const Qrqc = await firestore.collection('Qrqc').doc(probleme);
         const data = await Qrqc.get();
         if(!data.exists) {
             res.status(404).send('Qrqc with the given probleme not found');
@@ -73,10 +73,10 @@ const getQrqc = async (req, res, next) => {
 
 const updateQrqc = async (req, res, next) => {
     try {
-        const date = req.params.date;
+        
         const probleme = req.params.probleme;
         const data = req.body;
-        const Qrqc = await firestore.collection('Journee').doc(date).collection('Qrqc').doc(probleme);
+        const Qrqc = await firestore.collection('Qrqc').doc(probleme);
         await Qrqc.update(data);
         res.status(200).send(probleme + ' updated successfuly');        
     } catch (error) {
@@ -86,9 +86,9 @@ const updateQrqc = async (req, res, next) => {
 
 const deleteQrqc = async (req, res, next) => {
     try {
-        const date = req.params.date;
+        
         const probleme = req.params.probleme;
-        await firestore.collection('Journee').doc(date).collection('Qrqc').doc(probleme).delete();
+        await firestore.collection('Qrqc').doc(probleme).delete();
         res.status(200).send(probleme + ' deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);

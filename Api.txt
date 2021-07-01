@@ -56,20 +56,20 @@ router.put('http://localhost:8080/api/journee/:date', updateJournee);
 router.delete('http://localhost:8080/api/journee/:date', deleteJournee);
 *********QRQC********************
 router.post('http://localhost:8080/api/qrqc',addQrqc);
-router.get('http://localhost:8080/api/qrqcs/:date', getAllQrqcs);
-router.get('http://localhost:8080/api/qrqc/:date/:probleme', getQrqc);
-router.put('http://localhost:8080/api/qrqc/:date/:probleme', updateQrqc);
-router.delete('http://localhost:8080/api/qrqc/:date/:probleme', deleteQrqc);
+router.get('http://localhost:8080/api/qrqcs', getAllQrqcs);
+router.get('http://localhost:8080/api/qrqc/:probleme', getQrqc);
+router.put('http://localhost:8080/api/qrqc/:probleme', updateQrqc);
+router.delete('http://localhost:8080/api/qrqc/:probleme', deleteQrqc);
 *********Alerte***********
 router.post('http://localhost:8080/api/alerte',addAlerte);
-router.get('http://localhost:8080/api/alertes/:date', getAllAlertes);
-router.get('http://localhost:8080/api/alerte/:date/:nom_alerte', getAlerte);
-router.put('http://localhost:8080/api/alerte/:date/:nom_alerte', updateAlerte);
-router.delete('http://localhost:8080/api/alerte/:date/:nom_alerte', deleteAlerte);
+router.get('http://localhost:8080/api/alertes', getAllAlertes);
+router.get('http://localhost:8080/api/alerte/:nom_alerte', getAlerte);
+router.put('http://localhost:8080/api/alerte/:nom_alerte', updateAlerte);
+router.delete('http://localhost:8080/api/alerte/:nom_alerte', deleteAlerte);
 ********Form**************
 router.post('http://localhost:8080/api/form',addForm);
 router.get('http://localhost:8080/api/forms/:date', getAllForms);
-router.get('http://localhost:8080/api/formsbyref/:date/:ref', getAllFormsbyref);
-router.get('http://localhost:8080/api/form/:date/:heure', getForm);
-router.put('http://localhost:8080/api/form/:date/:heure', updateForm);
-router.delete('http://localhost:8080/api/form/:date/:heure', deleteForm);
+router.get('http://localhost:8080/api/formsbyref/:ref', getAllFormsbyref);
+router.get('http://localhost:8080/api/form/:heure', getForm);
+router.put('http://localhost:8080/api/form/:heure', updateForm);
+router.delete('http://localhost:8080/api/form/:heure', deleteForm);
