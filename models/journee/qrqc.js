@@ -1,10 +1,10 @@
 class Qrqc{
-    constructor(id_personne,niveau,probleme,ref,quoi,lieu,emp_piece,date,heure,taux,nbr,cause,nbrcause){
+    constructor(id_personne,niveau,probleme,ref,produit,lieu,emp_piece,date,heure,taux,nbr,cause,nbrcause,action_im){
         this.id_personne=id_personne;
         this.niveau=niveau;
         this.probleme=probleme;
         this.ref=ref;
-        this.quoi=quoi;
+        this.produit=produit;
         this.lieu=lieu;
         this.emp_piece=emp_piece;
         this.date=date;
@@ -13,6 +13,7 @@ class Qrqc{
         this.nbr=nbr;
         this.cause=cause;
         this.nbrcause=nbrcause;
+        this.action_im=action_im;
         
     }
 }

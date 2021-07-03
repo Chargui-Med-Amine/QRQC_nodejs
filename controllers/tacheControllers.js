@@ -41,6 +41,17 @@ const addtache = async(req,res,next)=>{
         res.status(400).send(error.message);
     }
 }
+const addtachebyid = async(req,res,next)=>{
+    try {
+        const data = req.body;
+        const id = req.params.id;
+        await firestore.collection('membres').doc(id).collection('TO_DO_LIST').doc('/'+req.body.description ).set(data);
+        res.send('Record saved successfuly')
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const getAlltaches = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -52,7 +63,7 @@ const getAlltaches = async (req, res, next) => {
         }else {
             data.forEach(doc => {
                 const tache = new Tache(
-                    doc.data().id,
+                    
                     doc.data().description,
                     doc.data().date_limite,
                     doc.data().date_affectation,
@@ -80,7 +91,7 @@ const gettachenotdone = async (req, res, next) => {
         }else {
             data.forEach(doc => {
                 const tache = new Tache(
-                    doc.data().id,
+                    
                     doc.data().description,
                     doc.data().date_limite,
                     doc.data().date_affectation,
@@ -107,7 +118,7 @@ const gettachedone = async (req, res, next) => {
         }else {
             data.forEach(doc => {
                 const tache = new Tache(
-                    doc.data().id,
+                    
                     doc.data().description,
                     doc.data().date_limite,
                     doc.data().date_affectation,
@@ -144,6 +155,7 @@ module.exports = {
     getAlltaches,
     gettachenotdone,
     gettachedone,
+    addtachebyid,
     updatetache
     
 }

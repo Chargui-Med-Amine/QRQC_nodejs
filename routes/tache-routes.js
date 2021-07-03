@@ -4,6 +4,7 @@ const {
     getAlltaches,
     gettachenotdone,
     gettachedone,
+    addtachebyid,
     updatetache
     
 } = require('../controllers/tacheControllers');
@@ -11,6 +12,7 @@ const {
 const router = express.Router();
 
 router.post('/tache/:fonction',addtache);
+router.post('/tachebyid/:id',addtachebyid);
 router.get('/taches/:id', getAlltaches);
 router.get('/tachenotdone/:id', gettachenotdone);
 router.get('/tachedone/:id', gettachedone);

@@ -1,6 +1,6 @@
 class tache{
-    constructor(id,description,date_limite,etat,id_emetteur){
-        this.id=id;
+    constructor(description,date_limite,etat,id_emetteur){
+        
         this.description=description;
         this.date_limite=date_limite;
         this.etat=etat;

@@ -8,6 +8,7 @@ router.get('http://localhost:8080/api/membresniv/:niv', getAllmembresbyNiveau);
 router.get('http://localhost:8080/api/membresfonc/:fonc', getAllmembresbyFonction);
 ****************tache******************************
 router.post('http://localhost:8080/api/tache/:fonction',addtache);
+router.post('http://localhost:8080/api/tachebyid/:id',addtachebyid);
 router.get('http://localhost:8080/api/taches/:id', getAlltaches);
 router.get('http://localhost:8080/api/tachenotdone/:id', gettachenotdone);
 router.get('http://localhost:8080/api/tachedone/:id', gettachedone);

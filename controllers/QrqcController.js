@@ -34,7 +34,7 @@ const getAllQrqcs = async (req, res, next) => {
                     doc.data().niveau,
                     doc.data().probleme,
                     doc.data().ref,
-                    doc.data().quoi,
+                    doc.data().produit,
                     doc.data().lieu,
                     doc.data().emp_piece,
                     doc.data().date,
@@ -42,7 +42,8 @@ const getAllQrqcs = async (req, res, next) => {
                     doc.data().taux,
                     doc.data().nbr,
                     doc.data().cause,
-                    doc.data().nbrcause
+                    doc.data().nbrcause,
+                    doc.data().action_im
                     
                 );
                 QrqcsArray.push(qrqc);
