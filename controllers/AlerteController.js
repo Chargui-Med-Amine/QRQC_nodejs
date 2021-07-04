@@ -30,6 +30,7 @@ const getAllAlertes = async (req, res, next) => {
                     
                     doc.data().id_personne,
                     doc.data().date,
+                    doc.data().heure,
                     doc.data().nom_alerte,
                     doc.data().nom_machine,
                     doc.data().description,
