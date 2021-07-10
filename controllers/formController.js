@@ -9,7 +9,7 @@ const firestore = firebase.firestore();
 const addForm = async(req,res,next)=>{
     try {
         const data = req.body;
-        await firestore.collection('Form').doc('/'+req.body.heure + '/').set(data);
+        await firestore.collection('Form').doc().set(data);
         res.send(req.body.heure+' saved successfuly')
     } catch (error) {
         res.status(400).send(error.message);
